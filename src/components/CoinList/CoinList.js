@@ -17,9 +17,8 @@ const useStyles = makeStyles({
 });
 
 const CoinList = () => {
-  const list = useData();
+  const list = useData('all');
   const classes = useStyles();
-  console.log(`list is ${JSON.stringify(list)}`);
   const coinList = list.map((coin) => (
     <Coin
       name={coin.name}
@@ -27,8 +26,9 @@ const CoinList = () => {
       currentPrice={coin.current_price}
       marketCap={coin.market_cap}
       key={coin.id}
+      id={coin.id}
     ></Coin>
-  ));
+    ));
 
   return (
     <TableContainer component={Paper}>

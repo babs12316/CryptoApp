@@ -4,6 +4,7 @@ import NoMatch from "./components/NoMatch/NoMatch";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import Header from "./components/Header/Header";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import CoinDetail from "./components/CoinDetail/CoinDetail";
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route exact path="/coin/:id">
+            <CoinDetail />
           </Route>
           <Route path="*">
             <NoMatch />
