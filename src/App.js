@@ -5,6 +5,7 @@ import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import Header from "./components/Header/Header";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
+
 function App() {
   return (
     <ErrorBoundary>
