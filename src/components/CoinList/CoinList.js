@@ -11,7 +11,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Filter from "../Filter/Filter";
 import Sort from "../Sort/Sort";
-import useFilter from "../../Hooks/useSort";
+import useSort from "../../Hooks/useSort";
+import useFilter from "../../Hooks/useFilter";
 
 const useStyles = makeStyles({
   title: {
@@ -24,11 +25,12 @@ const CoinList = () => {
   let [coinList, setCoinList] = useState([]);
 
   const [filterCoin, setFilterCoin] = useState(null);
+  const filteredList = useFilter(filterCoin);
   const classes = useStyles();
   const [sortBy, setSortBy] = useState("marketCap");
   const [sortType, setSortType] = useState("desc");
 
-  const sortedList= useFilter(sortBy,sortType)
+  const sortedList = useSort(sortBy, sortType);
 
   useEffect(() => {
     setCoinList(list);
@@ -36,27 +38,29 @@ const CoinList = () => {
 
   const handleFilterChange = (filterCoin) => {
     setFilterCoin(filterCoin);
+
+    if (filterCoin) {
+      setCoinList(filteredList);
+    } else {
+      setCoinList(list);
+    }
   };
 
   const changeSortTerm = (sortTerm, type) => {
     setSortBy(sortTerm);
     setSortType(type);
-    setCoinList(sortedList)
+    setCoinList(sortedList);
   };
 
-const coins = coinList
-    .filter((coin) =>
-      filterCoin ? coin.name.toLowerCase().includes(filterCoin) : coin
-    )
-    .map((coin) => (
-      <Coin
-        name={coin.name}
-        image={coin.image}
-        currentPrice={coin.current_price}
-        marketCap={coin.market_cap}
-        key={coin.id}
-      ></Coin>
-    ));
+  const coins = coinList.map((coin) => (
+    <Coin
+      name={coin.name}
+      image={coin.image}
+      currentPrice={coin.current_price}
+      marketCap={coin.market_cap}
+      key={coin.id}
+    ></Coin>
+  ));
 
   return (
     <>
