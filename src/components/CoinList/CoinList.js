@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import useData from "../../Hooks/getData";
+import useData from "../../Hooks/useData";
 import Coin from "../Coin/Coin";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -11,6 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Filter from "../Filter/Filter";
 import Sort from "../Sort/Sort";
+import useFilter from "../../Hooks/useSort";
 
 const useStyles = makeStyles({
   title: {
@@ -27,6 +28,8 @@ const CoinList = () => {
   const [sortBy, setSortBy] = useState("marketCap");
   const [sortType, setSortType] = useState("desc");
 
+  const sortedList= useFilter(sortBy,sortType)
+
   useEffect(() => {
     setCoinList(list);
   }, [list]);
@@ -38,61 +41,10 @@ const CoinList = () => {
   const changeSortTerm = (sortTerm, type) => {
     setSortBy(sortTerm);
     setSortType(type);
+    setCoinList(sortedList)
   };
 
-  useEffect(() => {
-    const handleAscSort = () => {
-      const sorted = list.sort(function (a, b) {
-        switch (sortBy) {
-          case "name": {
-            var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-            var nameB = b.name.toUpperCase(); // ignore upper and lowercase
-            if (sortType === "desc") {
-              if (nameA < nameB) {
-                return -1;
-              }
-              if (nameA > nameB) {
-                return 1;
-              }
-              // names must be equal
-              return 0;
-            } else if (sortType === "asc") {
-              if (nameA < nameB) {
-                return 1;
-              }
-              if (nameA > nameB) {
-                return -1;
-              }
-              // names must be equal
-              return 0;
-            }
-          }
-
-          // eslint-disable-next-line no-fallthrough
-          case "price":
-            if (sortType === "asc") {
-              return a.current_price - b.current_price;
-            } else if (sortType === "desc") {
-              return b.current_price - a.current_price;
-            }
-          // eslint-disable-next-line no-fallthrough
-          case "marketCap":
-            if (sortType === "asc") {
-              return a.market_cap - b.market_cap;
-            } else if (sortType === "desc") {
-              return b.market_cap - a.market_cap;
-            }
-          // eslint-disable-next-line no-fallthrough
-          default:
-            return null;
-        }
-      });
-      setCoinList(sorted);
-     };
-    handleAscSort(sortBy);
-  }, [sortBy, list, sortType]);
-
-  const coins = coinList
+const coins = coinList
     .filter((coin) =>
       filterCoin ? coin.name.toLowerCase().includes(filterCoin) : coin
     )
