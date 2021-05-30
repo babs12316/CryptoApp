@@ -19,3 +19,6 @@
 .filter{
   margin-bottom: 50px;
 }
+.sort{
+  cursor: pointer;
+}
