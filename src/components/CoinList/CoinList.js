@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useData from "../../Hooks/getData";
 import Coin from "../Coin/Coin";
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,6 +9,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import Filter from "../Filter/Filter";
 
 const useStyles = makeStyles({
   title: {
@@ -18,31 +19,43 @@ const useStyles = makeStyles({
 
 const CoinList = () => {
   const list = useData();
+  const [filterCoin, setFilterCoin] = useState(null);
   const classes = useStyles();
-  console.log(`list is ${JSON.stringify(list)}`);
-  const coinList = list.map((coin) => (
-    <Coin
-      name={coin.name}
-      image={coin.image}
-      currentPrice={coin.current_price}
-      marketCap={coin.market_cap}
-      key={coin.id}
-    ></Coin>
-  ));
+
+  const handleFilterChange = (filterCoin) => {
+    setFilterCoin(filterCoin);
+  };
+
+  const coinList = list
+    .filter((coin) =>
+      filterCoin ? coin.name.toLowerCase().includes(filterCoin) : coin
+    )
+    .map((coin) => (
+      <Coin
+        name={coin.name}
+        image={coin.image}
+        currentPrice={coin.current_price}
+        marketCap={coin.market_cap}
+        key={coin.id}
+      ></Coin>
+    ));
 
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="Coins table">
-        <TableHead>
-          <TableRow>
-            <TableCell className={classes.title}>Name</TableCell>
-            <TableCell className={classes.title}>Current Price</TableCell>
-            <TableCell className={classes.title}>MarketCap</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>{coinList}</TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <Filter onFilterChange={handleFilterChange}></Filter>
+      <TableContainer component={Paper}>
+        <Table aria-label="Coins table">
+          <TableHead>
+            <TableRow>
+              <TableCell className={classes.title}>Name</TableCell>
+              <TableCell className={classes.title}>Current Price</TableCell>
+              <TableCell className={classes.title}>MarketCap</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>{coinList}</TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 };
 
