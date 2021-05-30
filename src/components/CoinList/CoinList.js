@@ -70,16 +70,16 @@ const CoinList = () => {
 
           // eslint-disable-next-line no-fallthrough
           case "price":
-            if (sortType === "desc") {
+            if (sortType === "asc") {
               return a.current_price - b.current_price;
-            } else if (sortType === "asc") {
+            } else if (sortType === "desc") {
               return b.current_price - a.current_price;
             }
           // eslint-disable-next-line no-fallthrough
           case "marketCap":
-            if (sortType === "desc") {
+            if (sortType === "asc") {
               return a.market_cap - b.market_cap;
-            } else if (sortType === "asc") {
+            } else if (sortType === "desc") {
               return b.market_cap - a.market_cap;
             }
           // eslint-disable-next-line no-fallthrough

@@ -5,8 +5,8 @@ const Sort = ({ sortBy, onSort }) => {
   };
   return (
     <>
-      <span className="sort" onClick={(e) => handleAscClick(e, "asc")}>&uarr;</span>
-      <span className="sort" onClick={(e) => handleAscClick(e, "desc")}>&darr;</span>
+      <span className="sort" title ="Ascending" onClick={(e) => handleAscClick(e, "asc")}>&uarr;</span>
+      <span className="sort" title ="Descending" onClick={(e) => handleAscClick(e, "desc")}>&darr;</span>
     </>
   );
 };
