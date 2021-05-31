@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -8,9 +7,9 @@ const Header = () => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6">
-            <NavLink to="/" exact activeClassName="selected">
+            <a href="/" className="selected">
               CryptoHome
-            </NavLink>
+            </a>
           </Typography>
         </Toolbar>
       </AppBar>
