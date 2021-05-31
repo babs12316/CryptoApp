@@ -1,6 +1,6 @@
 import "./App.css";
-import Home from "./components/Home/Home";
-import NoMatch from "./components/NoMatch/NoMatch";
+import Home from "./views/Home/Home";
+import NoMatch from "./views/NoMatch/NoMatch";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import Header from "./components/Header/Header";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
