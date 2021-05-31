@@ -21,15 +21,17 @@ const useStyles = makeStyles({
 });
 
 const CoinList = () => {
+  
+  const classes = useStyles();
+
   const list = useData();
   let [coinList, setCoinList] = useState([]);
 
   const [filterCoin, setFilterCoin] = useState(null);
   const filteredList = useFilter(filterCoin);
-  const classes = useStyles();
+ 
   const [sortBy, setSortBy] = useState("marketCap");
   const [sortType, setSortType] = useState("desc");
-
   const sortedList = useSort(sortBy, sortType);
 
   useEffect(() => {
